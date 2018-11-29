@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+  <link rel="stylesheet" href="lib/bootstrap-3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/bootstrap-3.1.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="style.css"/>
+  <title>Mes posts : v01</title>
+</head>
+          <body ng-app="appPost" ng-controller="postController" class="container">
+              <table class="table table-striped table-hover">
+                  <thead>
+                    <p class="alert alert-danger" style="margin-top:50px">Liste des posts</p>
+                    <tr>
+                      <th><input type="button" value="Réinitialiser le choix" class="btn btn-primary" ng-click="reinitPost()" style="float:right; margin-bottom:10px"/></th>
+                       <a ng-click="triPosts('titre')">Titre  </a>
+                       <span class="hSpacer" ng-class="cssChevronsTri('titre')"></span>
+                      <th><input type="button" value="Ajouter / lire un post" class="btn btn-primary" ng-click="ajouterUnPost()" style="margin-bottom:10px"/></th>
+                    </tr>
+                    
+                    
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="post in posts | orderBy:champTri:triDescendant"" class="clickable" ng-click="selectionPost(post)">
+                      <td>{{post.titre}}</td>
+                      <td ng-bind-html="post.description"></td>
+                    </tr>
+                  </tbody>
+              </table>
+
+            <div class="alert alert-info">La liste contient {{posts.length}} posts. </div>
+
+            <div id="postListe" ng-show="isVisible">
+              <form name="formulaireAjout">
+                  <div class="form-group">
+                    <input type="text"  id="newPostTitre" class="form-control" placeholder="Titre" ng-model="post.titre"/><br>
+                    <textarea ui-tinymce="optionsTinyMce"  id="newPostDescription" class="form-control" placeholder="Description" ng-model="post.description" rows="7" ></textarea><br>
+  		              <input type="button" value="Ajouter" class="btn btn-success" ng-click="ajouterPost()" style="float:right; margin-bottom:10px"/><br>
+                  </div>
+  	          </form>
+  	          <div ng-show="postSelectionne != null" class="list-group" style="margin-top:20px">
+                <div class="list-group-item list-group-item-info">
+                    <h1>{{postSelectionne.titre}}</h1>
+                      <p ng-bind-html="postSelectionne.description"></p>
+                      <button ng-click="supprimerPost(postSelectionne.uuid)" class="btn btn-warning">Supprimer</button>
+                      <!-- <button ng-click="commenterPost()" class="btn btn-primary" style="float:right">Commenter</button> -->
+                          <div ng-show="isVisible" style="margin-top:20px">
+                            Auteur<input type="text" ng-model="com.auteur" class="form-control">
+                            Avis<textarea ui-tinymce="optionsTinyMce" ng-model="com.avis" class="form-control" rows="5"></textarea>
+                            <button ng-click="ajoutCom()" class="btn btn-success" style="margin-top:20px">Valider mon avis</button>
+                            <table class="table table-striped table-hover">
+                              <thead><p class="alert alert-danger" style="margin-top:50px">Liste des avis</p></thead>
+                              <tbody>
+                                <tr ng-repeat="com in commentaires" class="clickable" ng-click="">
+                                  <td>{{com.auteur}}</td>
+                                  <td ng-bind-html="com.avis"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+              </div>
+            </div>
+          </div>
+  <script type="text/javascript" src="lib/tinymce/tinymce.min.js"></script>
+  <!-- <script type="text/javascript" src="lib/angular.min.js"></script> -->
+  <script type="text/javascript" src="lib/angular-1.2.29/angular.js"></script>
+  <script type="text/javascript" src="lib/angular-1.2.29/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="lib/angular-1.2.29/i18n/angular-locale_fr-fr.js"></script>
+  <script type="text/javascript" src="lib/ui-tinymce.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="controlers.js"></script>
+</body>
+</html>
